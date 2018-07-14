@@ -5,7 +5,7 @@ const peace = {
     actions: ['transfer', 'build', 'repair', 'upgrade'],
     container: false,
     role: 'harvester',
-    resourceId: '77930773ce4f30e'
+    resourceId: '95d107748ae4e46'
   },
   harvester2: {
     min: 1,
@@ -13,7 +13,7 @@ const peace = {
     actions: ['transfer', 'build', 'repair', 'upgrade'],
     container: false,
     role: 'harvester2',
-    resourceId: '8b320773ce4b827'
+    resourceId: '31ef07748aec3a4'
   },
   upgrader: {
     min: 2,

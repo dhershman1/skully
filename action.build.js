@@ -1,7 +1,9 @@
 const build = (creep, room) => {
-  if (room.construction.length) {
-    if (creep.build(room.construction[0] === ERR_NOT_IN_RANGE)) {
-      creep.moveTo(room.construction[0])
+  const target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
+
+  if (target) {
+    if (creep.build(target) === ERR_NOT_IN_RANGE) {
+      creep.moveTo(target)
     }
 
     return 'build'

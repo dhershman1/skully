@@ -15,9 +15,9 @@ const generate = room => {
     if (creeps.length < types[n].min) {
       const name = room.spawns[0].createCreep(types[n].body, null, types[n])
 
-      console.log('name', name)
-
+      
       if (name !== ERR_NOT_ENOUGH_ENERGY && name !== ERR_BUSY) {
+        console.log('name', name)
         console.log(`Created ${name} with role ${n}`)
       }
 

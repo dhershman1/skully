@@ -1,8 +1,10 @@
 const _ = require('lodash')
+const actions = require('action')
 
 const getData = () => {
-  let data = {};
-  data.rooms = {};
+  const data = {
+    rooms: {}
+  };
 
   for (const room in Game.rooms) {
     const structures = Game.rooms[room].find(FIND_STRUCTURES)
@@ -43,8 +45,6 @@ const getData = () => {
     }
   }
 
-  console.log(Game.time % 10)
-
   data.spawn = (Game.time % 10 === 0)
   data.clear = (Game.time % 20 === 0)
 
@@ -52,19 +52,10 @@ const getData = () => {
   return data
 }
 
-const setAction = creep => {
-  if (creep.memory.action && creep.carry.energy === 0 || creep.memory.role === 'attacker' || creep.memory.role === 'healer'){
-    creep.memory.action = false
-  }
-  if (!creep.memory.action && creep.carry.energy === creep.carryCapacity){
-    creep.memory.action = true
-  }
-}
-
 const harvestNearestResource = (creep, room) => {
-  if (creep.memory.dropped){
-    if (room.dropped.length){
-      if (creep.pickup(room.dropped[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE){
+  if (creep.memory.dropped) {
+    if (room.dropped.length) {
+      if (creep.pickup(room.dropped[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
         creep.moveTo(room.dropped[0])
       }
       return
@@ -73,7 +64,7 @@ const harvestNearestResource = (creep, room) => {
   if (creep.memory.container){
     const places = [].concat(room.links, room.containers)
     const containers = _.filter(places, (structure) => {
-      if (structure.id === '3661ac9d924b604') return false
+      if (structure.id === '47faaefee81d9d7') return false
       if (!isNaN(structure.energy)) return structure.energy > 0
       return _.sum(structure.store) > 0
     })
@@ -102,7 +93,7 @@ const actionRunner = (creep, room) => {
   const priority = creep.memory.actions
 
   for (let i = 0, len = priority.length; i < len; i++) {
-    if (actions[priority[i]](creep, room)){
+    if (actions[priority[i]](creep, room)) {
       creep.memory.last = priority[i]
       return
     }
@@ -110,12 +101,12 @@ const actionRunner = (creep, room) => {
 }
 
 const tower = room => {
-  const actions = ['heal', 'attack', 'repair']
+  const locActions = ['heal', 'attack', 'repair']
 
   for (let i = 0, len = room.towers.length; i < len; i++) {
     const t = room.towers[i]
     t.memory = {
-      actions: actions,
+      actions: locActions,
       minEnergy: 250
     }
     if (room.hostiles.length || t.energy > 250) {
@@ -142,6 +133,15 @@ const panic = room => {
   }
 }
 
+const setAction = creep => {
+  if (creep.memory.action && creep.carry.energy === 0 || creep.memory.role === 'attacker' || creep.memory.role === 'healer'){
+    creep.memory.action = false
+  }
+  if (!creep.memory.action && creep.carry.energy === creep.carryCapacity){
+    creep.memory.action = true
+  }
+}
+
 const creepRole = (creep, room) => {
   setAction(creep)
 
@@ -153,7 +153,7 @@ const creepRole = (creep, room) => {
 }
 
 const link = room => {
-  const ID = '3661ac9d924b604'
+  const ID = '47faaefee81d9d7'
   const main = Game.getObjectById(ID)
 
   if (main.energy > 0 && main.cooldown === 0) {
@@ -168,7 +168,6 @@ const link = room => {
       const min = _.min(targets, (link) => {
         return link.energy
       });
-      console.log(min)
       main.transferEnergy(min)
     }
   }

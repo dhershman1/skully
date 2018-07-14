@@ -15,10 +15,11 @@ module.exports.loop = () => {
       spawner.generate(r)
     }
 
-    for (const name in r.reeps) {
+    for (const name in r.creeps) {
       const creep = r.creeps[name]
 
       if (creep.fatigue === 0) {
+
         lib.creepRole(creep, r)
       }
     }

@@ -2,6 +2,7 @@ const _ = require('lodash')
 
 const move = (creep, room) => {
   let target = []
+  
   if (room.hostiles.length) {
     target = _.filter(room.towers, (structure) => {
       if (structure.energy > 250) return false

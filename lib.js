@@ -61,7 +61,7 @@ const harvestNearestResource = (creep, room) => {
       return
     }
   }
-  if (creep.memory.container){
+  if (creep.memory.container) {
     const places = [].concat(room.links, room.containers)
     const containers = _.filter(places, (structure) => {
       if (structure.id === '47faaefee81d9d7') return false
@@ -69,8 +69,8 @@ const harvestNearestResource = (creep, room) => {
       return _.sum(structure.store) > 0
     })
     const target = creep.pos.findClosestByRange(containers)
-    if (target){
-      if (creep.withdraw(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE){
+    if (target) {
+      if (creep.withdraw(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
         creep.moveTo(target)
       }
       return
@@ -119,7 +119,7 @@ const panic = room => {
   const MIN_HEALTH = 5000
   const controller = room.controller
 
-  if (room.hostiles.length && !controller.safeMode && controller.safeModeAvailable && !controller.safeModeCooldown){
+  if (room.hostiles.length && !controller.safeMode && controller.safeModeAvailable && !controller.safeModeCooldown) {
     const walls = _.filter(room.walls, (structure) => {
       return structure.hits <= MIN_HEALTH
     })
@@ -134,10 +134,10 @@ const panic = room => {
 }
 
 const setAction = creep => {
-  if (creep.memory.action && creep.carry.energy === 0 || creep.memory.role === 'attacker' || creep.memory.role === 'healer'){
+  if (creep.memory.action && creep.carry.energy === 0 || creep.memory.role === 'attacker' || creep.memory.role === 'healer') {
     creep.memory.action = false
   }
-  if (!creep.memory.action && creep.carry.energy === creep.carryCapacity){
+  if (!creep.memory.action && creep.carry.energy === creep.carryCapacity) {
     creep.memory.action = true
   }
 }
@@ -164,7 +164,7 @@ const link = room => {
       return true
     });
 
-    if (targets.length){
+    if (targets.length) {
       const min = _.min(targets, (link) => {
         return link.energy
       });

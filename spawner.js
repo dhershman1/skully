@@ -17,7 +17,6 @@ const generate = room => {
 
       
       if (name !== ERR_NOT_ENOUGH_ENERGY && name !== ERR_BUSY) {
-        console.log('name', name)
         console.log(`Created ${name} with role ${n}`)
       }
 

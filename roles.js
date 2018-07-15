@@ -31,14 +31,6 @@ const peace = {
     container: true,
     role: 'builder'
   },
-  mover: {
-    min: 2,
-    body: [CARRY, MOVE],
-    actions: ['move'],
-    priority: [],
-    container: true,
-    role: 'mover'
-  },
   scavenger: {
     min: 1,
     body: [CARRY, CARRY, MOVE],

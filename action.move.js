@@ -1,5 +1,3 @@
-const _ = require('lodash')
-
 const move = (creep, room) => {
   let target = []
 

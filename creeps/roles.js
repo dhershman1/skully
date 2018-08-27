@@ -2,18 +2,10 @@ const peace = {
   harvester: {
     min: 1,
     body: [WORK, CARRY, MOVE],
-    actions: ['transfer', 'build', 'repair', 'upgrade'],
+    actions: ['harvest', 'transfer', 'repair'],
     container: false,
     role: 'harvester',
-    resourceId: '95d107748ae4e46'
-  },
-  harvester2: {
-    min: 1,
-    body: [WORK, CARRY, MOVE],
-    actions: ['transfer', 'build', 'repair', 'upgrade'],
-    container: false,
-    role: 'harvester2',
-    resourceId: '31ef07748aec3a4'
+    resourceIds: []
   },
   upgrader: {
     min: 2,

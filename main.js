@@ -1,31 +1,37 @@
-const spawner = require('spawner')
-const lib = require('lib')
+const getData = require('./lib/get-data')
+const panic = require('./lib/panic')
+const link = require('./lib/link')
+const { runner, setAct, tower } = require('./actions')
+const { generate, clear } = require('./creeps')
 
 module.exports.loop = () => {
-  const data = lib.getData()
+  const data = getData()
+  const rooms = Object.keys(data.rooms)
 
   if (data.clear) {
-    spawner.clear()
+    clear()
   }
 
-  for (const room in data.rooms) {
+  rooms.forEach(room => {
     const r = data.rooms[room]
+    const creeps = Object.keys(r.creeps)
 
     if (data.spawn) {
-      spawner.generate(r)
+      generate(r)
     }
 
-    for (const name in r.creeps) {
-      const creep = r.creeps[name]
+    creeps.forEach(name => {
+      const c = r.creeps[name]
 
-      if (creep.fatigue === 0) {
+      if (!c.fatigue) {
+        setAct(c)
 
-        lib.creepRole(creep, r)
+        runner(c, r)
       }
-    }
+    })
 
-    lib.panic(r)
-    lib.tower(r)
-    lib.link(r)
-  }
+    panic(r)
+    tower(r)
+    link(r)
+  })
 }
